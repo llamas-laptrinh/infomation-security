@@ -10,18 +10,28 @@
 </head>
 
 <body>
+    <div class="container ">
+        <h1>Classical Cryptographic</h1>
 
-    <h1>Caesar Cipher</h1>
-    <div class="container row">
         <div class="input-group">
             <input class="form-control" type="text" id="plain-text" placeholder="Nhập đoạn văn muốn mã hóa">
             <div class="input-group row">
                 <span class="input-group-text col-1" id="shift ">Số K</span>
-                <input type="number" id="shift" min="1" max="25" value="2" class="form-control col-2">
+                <input type="number" id="shift" min="1" max="25" value="2" class="form-control col-10">
+                <input class="form-control " id="key" type="text" id="plain-text" placeholder="Nhập khóa ">
             </div>
-            <button class="btn btn-primary" id="encrypt-Button">Mã hóa</button>
-            <input class="form-control" type="text" id="cipher-text" placeholder="Kết quả ">
+
+
+            <p class="form-control fs-6 text-uppercase" type="text" id="cipher-text">Kết quả</p>
+
         </div>
+        <button class="btn btn-outline-primary m-2" id="encrypt-Button">Caeser Cipher</button>
+        <button class="btn btn-outline-primary m-2" id="encrypt-Button2">Monoalphabetic Cipher</button>
+        <button class="btn btn-outline-primary m-2" id="encrypt-Button3">Vigenère Cipher</button>
+        <p> Hướng dẫn: </p>
+        <p> Caeser Cipher: Nhập văn bản cần mã hóa và số K </p>
+        <p> Monoalphabetic Ciphe: Nhập văn bản mã hóa và số K => Khóa sẽ được random </p>
+        <p> Vigenère Cipher: Nhập văn bản cần mã hóa và khóa </p>
     </div>
     <script src="func.js "></script>
 </body>
