@@ -36,13 +36,16 @@ function binaryToDecimal(binary) {
 
 function generateCipherText(bin_data) {
   let str_data = "";
-
+  let steps = "";
   for (let i = 0; i < bin_data.length; i += 8) {
     const temp_data = bin_data.slice(i, i + 8);
     const decimal_data = binaryToDecimal(temp_data);
+    steps += `binary: ${temp_data} => Decimal: ${decimal_data} => ASCII: ${String.fromCharCode(
+      decimal_data
+    )} \n`;
     str_data += String.fromCharCode(decimal_data);
   }
-  print("result", str_data);
+  print("encode-step", steps);
   return str_data;
 }
 function decimalToBinary(N) {
@@ -67,27 +70,29 @@ function prepareData(PT) {
   const m = R1.length;
 
   // Tạo K1 và K2
-  const K1 = rand_key(m);
-  const K2 = rand_key(m);
+  // const K1 = "10011111001100001010";
+  // const K2 = "00001010100010011000";
+  const K1 =  rand_key(m);
+  const K2 =  rand_key(m);
+
   print("k1", K1);
   print("k2", K2);
 
   // Vòng lặp Feistel đầu tiên
   const { temp: f1, pre: pre1 } = exor(R1, K1);
-
-  print("xor1", pre1 + "\n" + f1);
+  print("xor1", "exor(R1, K1) \n" + pre1 + "\nKQ f1:" + f1);
 
   const { temp: R2, pre: pre2 } = exor(f1, L1);
-  print("xor2", pre2 + "\n" + R2);
+  print("xor2", "exor(f1, L1) \n" + pre2 + "\nKQ L3:" + R2);
 
   const L2 = R1;
 
   // Vòng lặp Feistel thứ hai
   const { temp: f2, pre: pre3 } = exor(R2, K2);
-  print("xor3", pre3 + "\n" + f2);
+  print("xor3", "exor(R2, K2) \n" + pre3 + "\nKQ f2:" + f2);
 
   const { temp: R3, pre: pre4 } = exor(f2, L2);
-  print("xor4", pre4 + "\n" + R3);
+  print("xor4", "exor(f2, L2) \n" + pre4 + "\nKQ R3:" + R3);
 
   const L3 = R2;
   return { L3, R3, K2, K1 };
@@ -96,24 +101,25 @@ function prepareData(PT) {
 function encodeFeistelCipher(PT) {
   const { L3, R3, K1, K2 } = prepareData(PT);
   const bin_data = L3 + R3;
+  print("encoded-bin", bin_data);
   const encoded_str = generateCipherText(bin_data);
-
-  decodeFeistelCipher({ encoded_str, K1, K2 });
+  print("result", encoded_str);
+  // decodeFeistelCipher({ encoded_str, K1, K2 ,L3, R3});
   return;
 }
 
-function decodeFeistelCipher({ encoded_str, K2, K1 }) {
-  let bin_str = "";
-  for (let i = 0; i < encoded_str.length; i++) {
-    const char = encoded_str[i];
-    const decimal = char.charCodeAt(0);
-    const binary = decimalToBinary(decimal);
-    bin_str += binary;
-  }
+function decodeFeistelCipher({ encoded_str, K2, K1, L3, R3 }) {
+  // let bin_str = "";
+  // for (let i = 0; i < encoded_str.length; i++) {
+  //   const char = encoded_str.charAt(i);
+  //   const decimal = Number(char.charCodeAt(0)).toString(10);
+  //   const binary = decimalToBinary(decimal);
+  //   bin_str += binary;
+  // }
 
-  const n = Math.floor(bin_str.length / 2);
-  const L3 = bin_str.slice(0, n);
-  const R3 = bin_str.slice(n);
+  // const n = Math.floor(bin_str.length / 2);
+  // const L3 = bin_str.slice(0, n);
+  // const R3 = bin_str.slice(n);
 
   const L4 = L3;
   const R4 = R3;
@@ -130,7 +136,7 @@ function decodeFeistelCipher({ encoded_str, K2, K1 }) {
   let str_data = "";
   for (let i = 0; i < PT1.length; i += 8) {
     const temp_data = PT1.slice(i, i + 8);
-    console.log(temp_data);
+    console.log(temp_data, binaryToDecimal(temp_data));
     str_data += String.fromCharCode(binaryToDecimal(temp_data));
   }
   console.log(str_data);
