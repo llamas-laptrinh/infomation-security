@@ -72,8 +72,8 @@ function prepareData(PT) {
   // Tạo K1 và K2
   // const K1 = "10011111001100001010";
   // const K2 = "00001010100010011000";
-  const K1 =  rand_key(m);
-  const K2 =  rand_key(m);
+  const K1 = rand_key(m);
+  const K2 = rand_key(m);
 
   print("k1", K1);
   print("k2", K2);
@@ -142,5 +142,3 @@ function decodeFeistelCipher({ encoded_str, K2, K1, L3, R3 }) {
   console.log(str_data);
   return str_data;
 }
-
-// https://www.geeksforgeeks.org/feistel-cipher/?ref=header_search
