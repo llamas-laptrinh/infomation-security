@@ -55,13 +55,14 @@ function decimalToBinary(N) {
 function getText(PT) {
   const PT_Ascii = Array.from(PT).map((char) => char.charCodeAt(0));
   const PT_Bin = PT_Ascii.map((ascii) => ascii.toString(2).padStart(8, "0"));
-  print("ascii", PT_Ascii);
-  print("binary", PT_Bin);
   return { PT_Bin: PT_Bin.join(""), PT_Ascii };
 }
 
 function prepareData(PT) {
-  const { PT_Bin } = getText(PT);
+  const { PT_Bin, PT_Ascii } = getText(PT);
+  print("ascii", PT_Ascii);
+  print("binary", PT_Bin);
+
   const n = Math.floor(PT_Bin.length / 2);
   const L1 = PT_Bin.slice(0, n);
   const R1 = PT_Bin.slice(n);
@@ -69,11 +70,16 @@ function prepareData(PT) {
   print("r1", R1);
   const m = R1.length;
 
-  // Tạo K1 và K2
-  // const K1 = "10011111001100001010";
-  // const K2 = "00001010100010011000";
-  const K1 = rand_key(m);
-  const K2 = rand_key(m);
+  const seed = document.getElementById("seed").value;
+  const { PT_Bin: seed_Bin } = getText(seed);
+  const dif = seed_Bin.length - PT_Bin.length;
+  const tempSeed =
+    dif < 0
+      ? seed_Bin + PT_Bin.substring(0, Math.abs(dif))
+      : seed_Bin.slice(dif);
+
+  const K1 = tempSeed.length > 0 ? tempSeed.slice(0, n) : rand_key(m);
+  const K2 = tempSeed.length > 0 ? tempSeed.slice(n) : rand_key(m);
 
   print("k1", K1);
   print("k2", K2);
