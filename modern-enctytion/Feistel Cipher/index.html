@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern-enctytion</title>
+    <style>
+      body {
+        background-color: #fafafa;
+      }
+      #xor {
+        display: flex;
+        gap: 12px;
+      }
+      pre {
+        width: 30%;
+        border: 1px solid #939393;
+        border-radius: 12px;
+        padding: 12px;
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Feistel Cipher</h1>
+    <section>
+      <input id="plain-text" type="text" />
+      <button id="encode-btn">Encode</button>
+      <h3>Plain Text</h3>
+      <pre id="pt"></pre>
+      <h3>Plain Text to ASCII</h3>
+      <pre id="ascii"></pre>
+      <h3>ASCII to Binary</h3>
+      <pre id="binary"></pre>
+    </section>
+    <section>
+      <h1>Chia chuỗi nhị phân ra làm 2 nửa L1 và R1</h1>
+      <h3>L1</h3>
+      <pre id="l1"></pre>
+      <h3>R1</h3>
+      <pre id="r1"></pre>
+    </section>
+    <section>
+      <h1>Tạo 2 key nhị phân ngẫu nhiên</h1>
+      <h3>K1</h3>
+      <pre id="k1"></pre>
+      <h3>K2</h3>
+      <pre id="k2"></pre>
+    </section>
+    <h1>XOR round</h1>
+    <section id="xor">
+      <pre id="xor1"></pre>
+      <pre id="xor2"></pre>
+      <pre id="xor3"></pre>
+      <pre id="xor4"></pre>
+    </section>
+    <h1>Encoded</h1>
+    <pre id="result"></pre>
+    <script src="./index.js"></script>
+  </body>
+</html>
