@@ -77,16 +77,14 @@ function prepareData(PT, seed) {
   print("k1", K1);
   print("k2", K2);
 
-  // Vòng lặp Feistel đầu tiên
   const { temp: f1, pre: pre1 } = exor(R1, K1);
   print("xor1", "exor(R1, K1) \n" + pre1 + "\nKQ f1:" + f1);
 
   const { temp: R2, pre: pre2 } = exor(f1, L1);
-  print("xor2", "exor(f1, L1) \n" + pre2 + "\nKQ L3:" + R2);
+  print("xor2", "exor(f1, L1) \n" + pre2 + "\nKQ R2:" + R2);
 
   const L2 = R1;
 
-  // Vòng lặp Feistel thứ hai
   const { temp: f2, pre: pre3 } = exor(R2, K2);
   print("xor3", "exor(R2, K2) \n" + pre3 + "\nKQ f2:" + f2);
 
